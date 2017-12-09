@@ -1,1 +1,34 @@
 CME211 HW1 Read Alignment Program
+
+$ python3 generatedata.py 1000 600 50 "ref_1.txt" "reads_1.txt"reference length: 1000
+number reads: 600
+read length: 50
+aligns 0: 0.13666666666666666
+aligns 1: 0.76
+aligns 2: 0.10333333333333333
+$ python3 generatedata.py 10000 6000 50 "ref_2.txt" "reads_2.txt" 
+reference length: 10000
+number reads: 6000
+read length: 50
+aligns 0: 0.15016666666666667
+aligns 1: 0.745
+aligns 2: 0.10483333333333333
+$ python3 generatedata.py 100000 60000 50 "ref_3.txt" "reads_3.txt"
+reference length: 100000
+number reads: 60000
+read length: 50
+aligns 0: 0.14818333333333333
+aligns 1: 0.7516
+aligns 2: 0.10021666666666666
+
+
+Considered marginal cases
+	1) 0.75 * (total reference length) can be a non-integer. 
+	2) beginning index of reads which align twice should be at most (ref_length - 50)
+	3) if the given read-length is too long, reads which align twice can never appear.
+
+Note the distribution 75% / 15% / 10% cannot be exact, due to the random number generator. 
+Also, although very unlikely for long read length, align1 and align2 location can have same sequences of length longer than read length. probability = (1/4)^(read_len)
+
+
+Total 4 hours. but spent 1 hour dealing with tab!=4spaces problem of the sublimetext...
