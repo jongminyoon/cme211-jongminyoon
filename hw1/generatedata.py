@@ -60,12 +60,12 @@ if __name__ == "__main__":
         temp = random.random()
         if temp < 0.75:
             a1 += 1
-            ind = random.randint(0,len75 -1)
+            ind = random.randint(0,2*len75-ref_length -1)
             reads.append(ref[ind:ind+read_len])
         elif temp < 0.85:
             a2 += 1
-            ind = random.randint(0, ref_length-len75 -1 - read_len)
-            reads.append(ref[len75+ind:len75+ind+read_len])
+            ind = random.randint(len75+read_len, ref_length)
+            reads.append(ref[ind - read_len:ind])
         else:
             a0 += 1
             while True:

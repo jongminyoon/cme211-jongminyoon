@@ -1,0 +1,5 @@
+CGA 1 5
+ATC 3
+AGG 7
+GAG 6
+AGT -1

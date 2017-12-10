@@ -1,34 +1,77 @@
 CME211 HW1 Read Alignment Program
 
-$ python3 generatedata.py 1000 600 50 "ref_1.txt" "reads_1.txt"reference length: 1000
+
+1) generatedata.py
+
+$ python3 generatedata.py 1000 600 50 ref_1.txt reads_1.txt
+reference length: 1000
 number reads: 600
 read length: 50
-aligns 0: 0.13666666666666666
-aligns 1: 0.76
-aligns 2: 0.10333333333333333
-$ python3 generatedata.py 10000 6000 50 "ref_2.txt" "reads_2.txt" 
+aligns 0: 0.16166666666666665
+aligns 1: 0.745
+aligns 2: 0.09333333333333334
+$ python3 generatedata.py 10000 6000 50 ref_2.txt reads_2.txt
 reference length: 10000
 number reads: 6000
 read length: 50
-aligns 0: 0.15016666666666667
-aligns 1: 0.745
-aligns 2: 0.10483333333333333
-$ python3 generatedata.py 100000 60000 50 "ref_3.txt" "reads_3.txt"
+aligns 0: 0.15266666666666667
+aligns 1: 0.753
+aligns 2: 0.09433333333333334
+$ python3 generatedata.py 100000 60000 50 ref_3.txt reads_3.txt
 reference length: 100000
 number reads: 60000
 read length: 50
-aligns 0: 0.14818333333333333
-aligns 1: 0.7516
-aligns 2: 0.10021666666666666
+aligns 0: 0.15033333333333335
+aligns 1: 0.7491666666666666
+aligns 2: 0.1005
+
 
 
 Considered marginal cases
 	1) 0.75 * (total reference length) can be a non-integer. 
 	2) beginning index of reads which align twice should be at most (ref_length - 50)
 	3) if the given read-length is too long, reads which align twice can never appear.
+	4) Most importantly, note the beginning index of align2 should be ref_length-50-1
 
 Note the distribution 75% / 15% / 10% cannot be exact, due to the random number generator. 
 Also, although very unlikely for long read length, align1 and align2 location can have same sequences of length longer than read length. probability = (1/4)^(read_len)
 
 
 Total 4 hours. but spent 1 hour dealing with tab!=4spaces problem of the sublimetext...
+
+
+
+
+
+2) processdata.py
+
+
+$ python3 processdata.py ref_1.txt reads_1.txt align_1.txt
+reference length: 1000
+number reads: 600
+aligns 0: 0.16166666666666665
+aligns 1: 0.7433333333333333
+aligns 2: 0.095
+elapsed time: 0.008428335189819336
+$ python3 processdata.py ref_2.txt reads_2.txt align_2.txt
+reference length: 10000
+number reads: 6000
+aligns 0: 0.15266666666666667
+aligns 1: 0.7528333333333334
+aligns 2: 0.0945
+elapsed time: 0.27820920944213867
+$ python3 processdata.py ref_3.txt reads_3.txt align_3.txt
+reference length: 100000
+number reads: 60000
+aligns 0: 0.15033333333333335
+aligns 1: 0.7490833333333333
+aligns 2: 0.10058333333333333
+elapsed time: 26.412270307540894
+
+
+Considered marginal case
+	1) if empty lines are included in the reads.txt file
+	2) if reads.txt or ref.txt are empty
+
+Note the probability of align1 and align2 are not exactly the same with the ones from generatedata.py
+It's because of those reads of align 1 of which starting index is very close to the end of the first 50% of the reference. Then the last n sequences overlap with align2 region, then by the probability of 0.25**(read_len-n) it can match the end (read_len-n) sequences of the align2 region. Then it appears twice in the reference, even though generated from align1.
