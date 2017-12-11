@@ -1,0 +1,45 @@
+CME211 HW2 Movie Similarlity Calculation
+
+
+Things to consider when creating test data
+	1) a movie rated less than the threshold
+	2) movies with different n of rating users 
+	3) denominator zero case  - same rating across all users
+	4) Similarity 1, -1 cases.
+
+
+Marginal cases to consider
+	1) when denominator is zero
+	2) when common user number is less than the threshold
+
+Note that I used dictionary of dictionaries. {movie_id:{user_id:rating}}
+
+Things learned
+	1) sort the entire data using one column
+	    a = list(data.keys())
+	    b = [(x,most_similar(x,data,user_thresh)) for x in a]
+	    final = sorted(b, key = lambda x:x[0])
+	2) use of comprehensions!
+	3) intersections : common_users = set(data[a].keys())&set(data[b].keys())
+	4) str(tuple) is naturally displayed
+
+
+$ python3 similarity.py ml-100k/u.data similarities.txt
+Input MovieLens file: ml-100k/u.data
+Output file for similarity data: similarities.txt
+Minimum number of common users: 5
+Read 100000 lines with total of 1682 movies and 943 users
+Computed similarities in 44.226332664489746 seconds
+
+
+$ head -n 10 similarities.txt 
+1 (918, 0.9105046586065213, 5)
+2 (1056, 0.9999805766784161, 5)
+3 (1081, 0.977052393662793, 5)
+4 (35, 0.8035001899406666, 6)
+5 (976, 0.9330795632032151, 5)
+6 (279, 0.9597565073371666, 5)
+7 (968, 0.997420592235218, 7)
+8 (590, 0.8646937307646155, 6)
+9 (113, 0.9644943052520143, 5)
+10 (1202, 0.9724294104431036, 5)
