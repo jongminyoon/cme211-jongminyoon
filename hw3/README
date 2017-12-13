@@ -1,0 +1,30 @@
+class airfoil
+	variable/data :inputdir,  panel coordinates, alpha, pressure coefficients
+	method : chord length, find stagnation point, calculate cx, cy, and then cl, print
+
+Class attributes
+	count : number of coordinates.
+	xy[0] : x coordinates, xy[1] : y coordinates, both are lists
+	alphas : dictionary {alpha : [list of the pressure coefficients]}
+	chordlength = chord length, from tail to head.
+	cl : dictionary, {alpha : cl}
+	stgpt : dictionary, {alpha : [(x,y),cp]}
+
+Things learned
+	for file reading, first execute f.readline() and then for line in f: -> for-loop reads from the second line.
+	import os, glob -> files = glob.glob(inputdir+"*"), filenames = [x for x in os.path.split(files)[1]]
+	when make two dimensional array as a list of lists, think well about which index should be the outer one, i.e. easier to approach the data.
+
+
+
+$ python3 main.py naca0012/
+alpha      cl            stagnation pt
+-----   -------   ----------------------------
+-3.00    0.3554    ( 0.0030,  0.0094)  0.9906
+ 0.00    0.0000    ( 0.0000,  0.0000)  0.9944
+ 3.00   -0.3554    ( 0.0030, -0.0094)  0.9906
+ 6.00    0.6697    ( 0.0099, -0.0170)  0.9967
+ 9.00   -0.9045    ( 0.0219, -0.0246)  0.9977
+
+
+ Note, values of cl are different from the hw3 printout... there is sth I misunderstand about in caculating cl...
