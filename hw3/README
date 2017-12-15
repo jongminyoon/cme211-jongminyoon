@@ -1,3 +1,5 @@
+CME211 HW3 Class Airfoil and lift coefficients
+
 class airfoil
 	variable/data :inputdir,  panel coordinates, alpha, pressure coefficients
 	method : chord length, find stagnation point, calculate cx, cy, and then cl, print
