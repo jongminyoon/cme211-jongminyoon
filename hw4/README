@@ -1,0 +1,22 @@
+CME211 HW4 2D truss analysis
+
+python3 main.py [joints file] [beams file] [optional plot output file]
+
+joints file : # joint    x    y   Fx    Fy   zerodisp
+beams file  : # beam    Ja    Jb
+
+
+create a matrix A such that solving A.B==F gives forces on beams B.
+
+	from scipy.sparse.linalg import spsolve
+	self.B = spsolve(self.Amat, self.F)
+
+
+use sparse matrix csr for matrix A.
+
+	from scipy.sparse import csr_matrix
+	self.Amat = csr_matrix((data,(row,col)), shape = (2*nx,self.n_beams))
+
+a method (PlotGeometry) which plots the shape of the truss.
+
+	plt.plot([xa,xb],[ya,yb], 'b')
