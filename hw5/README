@@ -1,0 +1,18 @@
+CME211 HW5 Mazesolver with righthand wall following algorithm
+
+
+./mazesolver <maze file> <solution file>
+
+1) Maximum size of the maze - #define MAX 256
+2) Use three-index array for the next move:
+	1st ind = previous moving direction, 0 = right, 1 = forward, 2 = left, 3 = backward
+	2nd ind = search order, again 0 = right, 1 = forward, 2 = left, 3 = backward
+	3rd ind = movement in row and column
+For i=[0,3], check if there is a wall at maze[r+dir[d][i][0]][c+dir[d][i][1]]. If not, move to that direction and update r, c, and d (d+3+i)%4 
+Note, in c++ -1%4 = -1. 
+
+
+python3 checksoln.py <maze file> <solution file>
+
+1) read the files with np.loadtxt. note, dtype=np.int16 as indices can be as large as 255. 
+2) When checking if the solution is valid, rather than going through all the wall entries every time, create a sparse matrix and check the matrix element is much faster. used scipy.sparse.csr_matrix
