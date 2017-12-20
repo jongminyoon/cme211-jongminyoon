@@ -1,0 +1,14 @@
+CSR format : val, r_ptr, c_idx --> A[i][c_idx[from r_ptr[i] to r_ptr[i+1]-1]] = val[from r_ptr[i] to r_ptr[i+1]-1]
+
+for std::vector a, a.size() is an unsigned int
+
+unsigned int max_col = *std::max_element(col_idx.begin(), col_idx.end());
+
+Note the difference?
+	std::vector<double> Ax = matdotvec(val,row_ptr,col_idx,x);
+	sum(r, Ax,-1.);
+	vs 
+	sum(r, matdotvec(val,row_ptr,col_idx,x),-1.);
+
+
+Total time ~ 5hrs
