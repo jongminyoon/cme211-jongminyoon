@@ -16,3 +16,6 @@ python3 checksoln.py <maze file> <solution file>
 
 1) read the files with np.loadtxt. note, dtype=np.int16 as indices can be as large as 255. 
 2) When checking if the solution is valid, rather than going through all the wall entries every time, create a sparse matrix and check the matrix element is much faster. used scipy.sparse.csr_matrix
+
+
+Total time ~ 5hrs. maybe thought to much on making a short code on righthand wall following algorithm.

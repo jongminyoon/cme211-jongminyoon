@@ -20,3 +20,8 @@ use sparse matrix csr for matrix A.
 a method (PlotGeometry) which plots the shape of the truss.
 
 	plt.plot([xa,xb],[ya,yb], 'b')
+
+
+Total time ~ 7hrs, 
+Took a while due to a weird error when using linalg.solve, which disappeared when using sparse.linalg.spsolve.
+Also, probably the way I used for creating CSR matrix is not optimal..

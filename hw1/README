@@ -75,3 +75,7 @@ Considered marginal case
 
 Note the probability of align1 and align2 are not exactly the same with the ones from generatedata.py
 It's because of those reads of align 1 of which starting index is very close to the end of the first 50% of the reference. Then the last n sequences overlap with align2 region, then by the probability of 0.25**(read_len-n) it can match the end (read_len-n) sequences of the align2 region. Then it appears twice in the reference, even though generated from align1.
+
+
+
+Total time ~ 4hrs, including figuring out an error from inconsistent indentations of my text editor.....
