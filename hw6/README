@@ -1,0 +1,37 @@
+needed to install libjpeg.h. Download from https://github.com/LuaDist/libjpeg and followed unix installation instructions in install.txt
+
+in hw6.cpp, needed to change true to TRUE. Seems like a libjpeg library uses TRUE with enum for boolean, rather than the built-in boolean bool in c++
+
+should make sure to include -L/home/jmyoon/anaconda3/lib -ljpeg when compiling.
+
+
+
+But still, I am getting this error....
+
+g++ -std=c++11 -Wall -Wextra -Wconversion -pedantic -L/home/jmyoon/anaconda3/lib -ljpeg  main.cpp image.cpp hw6.cpp -o main
+/tmp/cchpRqZu.o: In function `ReadGrayscaleJPEG(std::string, boost::multi_array<unsigned char, 2ul, std::allocator<unsigned char> >&)':
+hw6.cpp:(.text+0x119): undefined reference to `jpeg_std_error'
+hw6.cpp:(.text+0x139): undefined reference to `jpeg_CreateDecompress'
+hw6.cpp:(.text+0x152): undefined reference to `jpeg_stdio_src'
+hw6.cpp:(.text+0x166): undefined reference to `jpeg_read_header'
+hw6.cpp:(.text+0x2b7): undefined reference to `jpeg_start_decompress'
+hw6.cpp:(.text+0x302): undefined reference to `jpeg_read_scanlines'
+hw6.cpp:(.text+0x380): undefined reference to `jpeg_finish_decompress'
+hw6.cpp:(.text+0x38f): undefined reference to `jpeg_destroy_decompress'
+/tmp/cchpRqZu.o: In function `WriteGrayscaleJPEG(std::string, boost::multi_array<unsigned char, 2ul, std::allocator<unsigned char> >&)':
+hw6.cpp:(.text+0x575): undefined reference to `jpeg_std_error'
+hw6.cpp:(.text+0x595): undefined reference to `jpeg_CreateCompress'
+hw6.cpp:(.text+0x5ae): undefined reference to `jpeg_stdio_dest'
+hw6.cpp:(.text+0x60b): undefined reference to `jpeg_set_defaults'
+hw6.cpp:(.text+0x624): undefined reference to `jpeg_set_quality'
+hw6.cpp:(.text+0x638): undefined reference to `jpeg_start_compress'
+hw6.cpp:(.text+0x690): undefined reference to `jpeg_write_scanlines'
+hw6.cpp:(.text+0x6af): undefined reference to `jpeg_finish_compress'
+collect2: error: ld returned 1 exit status
+make: *** [main] Error 1
+
+
+Note, 
+g++ -std=c++11 -Wall -Wextra -Wconversion -pedantic -L/home/jmyoon/anaconda3/lib -ljpeg  -DDEBUG hw6.cpp -o hw6
+
+does not generate error message...
