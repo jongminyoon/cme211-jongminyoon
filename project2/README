@@ -1,0 +1,55 @@
+1) When setting up the A matrix, utilize the % modulo operator for boundary cases.
+for (int j = 0 ; j < this->ny ; j++) {
+        for (int i = 0 ; i < this->nx ; i++) {
+            int center = i + this->nx*j;
+            int left   = (i+nx-1)%nx + this->nx*j; // use mod nx for periodic b.c.
+            int right  = (i+1)%nx + this->nx*j;    // use mod nx for periodic b.c.
+            int up     = i+this->nx*(j+1);
+            int down   = i+this->nx*(j-1);
+
+2) Modified CGSolver so that it saves the current solution x at every 10 iterations. 
+generating file name :
+#include <sstream>
+#include <iomanip>
+#include <string>
+	std::stringstream ss;
+    ss << std::setw(3) << std::setfill('0') << niter;
+    std::string s = soln_prefix;
+    s += ss.str();
+    s += ".txt";
+
+3) CGSolve in the SparseMatrix class is just solving Ax=b for a pure column vector x.
+For the real solution file of heat.cpp, implemented Formatsoln method : we read the solution file from A.CGSolve, properly reshape the long column vector into a matrix, and also attach the top and bottom boundary (with fixed temperature) and the periodic end in x. Then overwrite the solution file.
+
+4) Did not implement SparseMatrix::Resize, although suggested in the given sparse.hpp. Why was it needed?
+
+5) postprocess.py : 1D interpolation
+from scipy.interpolate import interp1d (note p'one'd)
+	interpolation = np.zeros(sol.shape[1])
+	ygrid = range(sol.shape[0])
+	for i in range(sol.shape[1]):
+		f = interp1d(sol[:,i],ygrid, kind='cubic')
+		interpolation[i] = f(meantemp)
+
+6) 2D pseudo color plotting
+	y, x = np.mgrid[0.:ylen+h:h, 0.:xlen+h:h]
+	plt.pcolor(x, y, sol, cmap='jet', vmin=tc, vmax=th)
+	plt.colorbar()
+	plt.show()
+
+7) bonus.py - animation
+import matplotlib.animation as animation
+import sys, os, glob
+	files = glob.glob(sol_file+"*")
+	filenames = [os.path.split(x)[1] for x in files]
+	y, x = np.mgrid[0.:ylen+h:h, 0.:xlen+h:h]
+	fig = plt.figure()
+	ims = []
+	for file in filenames:
+		sol = np.loadtxt(file)
+		ims.append((plt.pcolor(x, y, sol, cmap='jet', vmin=tc, vmax=th),))
+	im_ani = animation.ArtistAnimation(fig, ims, interval=200, repeat_delay=1000,
+	                                   blit=True)
+	plt.show()
+
+Total time ~ 7+2hrs
